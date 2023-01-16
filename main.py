@@ -17,7 +17,10 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("SACHMATAI")
 
 chess_board = pygame.image.load(f'Directory\\chess_board.png')
-check_mate = pygame.image.load(f'Directory\\check_mate.png')
+
+check_mate = pygame.image.load('Directory\check_mate.png')
+white_won = pygame.image.load('Directory\white_won.png')
+black_won = pygame.image.load('Directory\\black_won.png')
 
 black_check_mate = False
 white_check_mate = False
@@ -2439,11 +2442,15 @@ while True:
             if ev.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-        screen.blit(chess_board, pygame.rect.Rect(0, 0, 1080, 1080))
+        screen.blit(chess_board, (1080, 1080))
         all_pieces_sprite_group.draw(screen)
-        screen.blit(check_mate, pygame.rect.Rect(100, 0, 1080, 1080))
+        screen.blit(check_mate, (0, 0))
+        if black_check_mate:
+            screen.blit(white_won, (0, 0))
+        else:
+            screen.blit(black_won, (0, 0))
         pygame.display.flip()
-        clock.tick(60)
+        clock.tick(20)
 
     all_pieces_sprite_group.draw(screen)
     pygame.display.flip()
