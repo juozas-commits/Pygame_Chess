@@ -17,23 +17,12 @@ pygame.display.set_caption("SACHMATAI")
 black_colour = (64, 62, 68)
 white_colour = (127, 124, 133)
 
+chess_board = pygame.image.load(f'Directory\\chess_board.png')
 
-def chessboard():
-    screen.fill(black_colour)
-    width = 135
-    height = 135
+black_check_mate = False
+white_check_mate = False
 
-    top = 0
-    for y in range(8):
-        if y % 2 == 0:
-            left = 0
-        else:
-            left = 135
-        for x in range(4):
-            tile = pygame.Rect(left, top, width, height)
-            pygame.draw.rect(screen, white_colour, tile)
-            left += 270
-        top += 135
+check_mate = pygame.image.load(f'Directory\\check_mate.png')
 
 
 def get_cords():
@@ -244,9 +233,21 @@ white_pawns = pygame.sprite.Group()
 black_pawns = pygame.sprite.Group()
 
 queens = pygame.sprite.Group()
+black_queens = pygame.sprite.Group()
+white_queens = pygame.sprite.Group()
+
 rooks = pygame.sprite.Group()
+black_rooks = pygame.sprite.Group()
+white_rooks = pygame.sprite.Group()
+
 bishops = pygame.sprite.Group()
+black_bishops = pygame.sprite.Group()
+white_bishops = pygame.sprite.Group()
+
 knights = pygame.sprite.Group()
+black_knights = pygame.sprite.Group()
+white_knights = pygame.sprite.Group()
+
 omnis = pygame.sprite.Group()
 
 kings = pygame.sprite.Group()
@@ -256,20 +257,26 @@ all_pieces_sprite_group.add(queen_black, rook_black_left, rook_black_right, knig
                             queen_white, rook_white_left, rook_white_right, knight_white_left, knight_white_right, bishop_white_left, bishop_white_right,
                             pawn_white_h, pawn_white_g, pawn_white_f, pawn_white_e, pawn_white_d, pawn_white_c, pawn_white_b, pawn_white_a, king_black, king_white)
 
-# all_pieces_sprite_group.add(pawn_white_g, pawn_black_f)
-
-
-
 all_pawns.add(pawn_black_h, pawn_black_g, pawn_black_f, pawn_black_e, pawn_black_d, pawn_black_c, pawn_black_b, pawn_black_a,
               pawn_white_h, pawn_white_g, pawn_white_f, pawn_white_e, pawn_white_d, pawn_white_c, pawn_white_b, pawn_white_a)
-
 white_pawns.add(pawn_white_h, pawn_white_g, pawn_white_f, pawn_white_e, pawn_white_d, pawn_white_c, pawn_white_b, pawn_white_a)
 black_pawns.add(pawn_black_h, pawn_black_g, pawn_black_f, pawn_black_e, pawn_black_d, pawn_black_c, pawn_black_b, pawn_black_a)
 
 queens.add(queen_white, queen_black)
+black_queens.add(queen_black)
+white_queens.add(queen_white)
+
 rooks.add(rook_white_left, rook_white_right, rook_black_left, rook_black_right)
+black_rooks.add(rook_black_left, rook_black_right)
+white_rooks.add(rook_white_left, rook_white_right)
+
 bishops.add(bishop_white_left, bishop_white_right, bishop_black_left, bishop_black_right)
+black_bishops.add(bishop_black_left, bishop_black_right)
+white_bishops.add(bishop_white_left, bishop_white_right)
+
 knights.add(knight_white_left, knight_white_right, knight_black_left, knight_black_right)
+black_knights.add(knight_black_left, knight_black_right)
+white_knights.add(knight_white_left, knight_white_right)
 
 kings.add(king_black, king_white)
 
@@ -447,6 +454,756 @@ def white_king_is_in_check():
         if king_white.coordinates == cord:
             white_king_is_in_check = True
     return white_king_is_in_check
+
+
+def adjusted_for_check(team):
+
+    w_substract_while_checks_internal = []
+
+    if team == -1:
+        king_x, king_y = king_black.coordinates
+    else:
+        king_x, king_y = king_white.coordinates
+
+    breaking = False
+
+    while king_x >= 0 and not breaking:
+        king_x -= 1
+        w_substract_while_checks_internal.append((king_x, king_y))
+        if team == -1:
+            if (king_x, king_y) in black_pieces_position_list:
+                cant_be_moved = True
+                piece_that_cant_move = (king_x, king_y)
+                while cant_be_moved and king_x >= 0:
+                    king_x -= 1
+                    w_substract_while_checks_internal.append((king_x, king_y))
+                    if (king_x, king_y) in white_pieces_position_list:
+                        for piece in all_pieces_sprite_group:
+                            if piece.coordinates == (king_x, king_y) and (
+                                    piece in white_rooks or piece in white_queens):
+                                for piece_that_restricted in all_pieces_sprite_group:
+                                    if piece_that_restricted.coordinates == piece_that_cant_move:
+                                        b_sub = []
+                                        for move in piece_that_restricted.legal_moves:
+                                            if move in w_substract_while_checks_internal:
+                                                b_sub.append(move)
+                                        piece_that_restricted.legal_moves = b_sub
+                                        cant_be_moved = False
+                                        breaking = True
+                                        break
+                    if (king_x, king_y) in black_pieces_position_list:
+                        breaking = True
+                        break
+        if team == 1:
+            if (king_x, king_y) in white_pieces_position_list:
+                cant_be_moved = True
+                piece_that_cant_move = (king_x, king_y)
+                while cant_be_moved and king_x >= 0:
+                    king_x -= 1
+                    w_substract_while_checks_internal.append((king_x, king_y))
+                    if (king_x, king_y) in black_pieces_position_list:
+                        for piece in all_pieces_sprite_group:
+                            if piece.coordinates == (king_x, king_y) and (
+                                    piece in black_rooks or piece in black_queens):
+                                for piece_that_restricted in all_pieces_sprite_group:
+                                    if piece_that_restricted.coordinates == piece_that_cant_move:
+                                        b_sub = []
+                                        for move in piece_that_restricted.legal_moves:
+                                            if move in w_substract_while_checks_internal:
+                                                b_sub.append(move)
+                                        piece_that_restricted.legal_moves = b_sub
+                                        cant_be_moved = False
+                                        breaking = True
+                                        break
+                    if (king_x, king_y) in white_pieces_position_list:
+                        breaking = True
+                        break
+
+    w_substract_while_checks_internal = []
+
+    if team == -1:
+        king_x, king_y = king_black.coordinates
+    else:
+        king_x, king_y = king_white.coordinates
+
+    breaking = False
+
+    while king_x <= 7 and not breaking:
+        king_x += 1
+        w_substract_while_checks_internal.append((king_x, king_y))
+        if team == -1:
+            if (king_x, king_y) in black_pieces_position_list:
+                cant_be_moved = True
+                piece_that_cant_move = (king_x, king_y)
+                while cant_be_moved and king_x <= 7:
+                    king_x += 1
+                    w_substract_while_checks_internal.append((king_x, king_y))
+                    if (king_x, king_y) in white_pieces_position_list:
+                        for piece in all_pieces_sprite_group:
+                            if piece.coordinates == (king_x, king_y) and (
+                                    piece in white_rooks or piece in white_queens):
+                                for piece_that_restricted in all_pieces_sprite_group:
+                                    if piece_that_restricted.coordinates == piece_that_cant_move:
+                                        b_sub = []
+                                        for move in piece_that_restricted.legal_moves:
+                                            if move in w_substract_while_checks_internal:
+                                                b_sub.append(move)
+                                        piece_that_restricted.legal_moves = b_sub
+                                        cant_be_moved = False
+                                        breaking = True
+                                        break
+                    if (king_x, king_y) in black_pieces_position_list:
+                        breaking = True
+                        break
+        if team == 1:
+            if (king_x, king_y) in white_pieces_position_list:
+                cant_be_moved = True
+                piece_that_cant_move = (king_x, king_y)
+                while cant_be_moved and king_x <= 7:
+                    king_x += 1
+                    w_substract_while_checks_internal.append((king_x, king_y))
+                    if (king_x, king_y) in black_pieces_position_list:
+                        for piece in all_pieces_sprite_group:
+                            if piece.coordinates == (king_x, king_y) and (
+                                    piece in black_rooks or piece in black_queens):
+                                for piece_that_restricted in all_pieces_sprite_group:
+                                    if piece_that_restricted.coordinates == piece_that_cant_move:
+                                        b_sub = []
+                                        for move in piece_that_restricted.legal_moves:
+                                            if move in w_substract_while_checks_internal:
+                                                b_sub.append(move)
+                                        piece_that_restricted.legal_moves = b_sub
+                                        cant_be_moved = False
+                                        breaking = True
+                                        break
+                    if (king_x, king_y) in white_pieces_position_list:
+                        breaking = True
+                        break
+
+    w_substract_while_checks_internal = []
+
+    if team == -1:
+        king_x, king_y = king_black.coordinates
+    else:
+        king_x, king_y = king_white.coordinates
+
+    breaking = False
+
+    while king_y >= 0 and not breaking:
+        king_y -= 1
+        w_substract_while_checks_internal.append((king_x, king_y))
+        if team == -1:
+            if (king_x, king_y) in black_pieces_position_list:
+                cant_be_moved = True
+                piece_that_cant_move = (king_x, king_y)
+                while cant_be_moved and king_y >= 0:
+                    king_y -= 1
+                    w_substract_while_checks_internal.append((king_x, king_y))
+                    if (king_x, king_y) in white_pieces_position_list:
+                        for piece in all_pieces_sprite_group:
+                            if piece.coordinates == (king_x, king_y) and (
+                                    piece in white_rooks or piece in white_queens):
+                                for piece_that_restricted in all_pieces_sprite_group:
+                                    if piece_that_restricted.coordinates == piece_that_cant_move:
+                                        b_sub = []
+                                        for move in piece_that_restricted.legal_moves:
+                                            if move in w_substract_while_checks_internal:
+                                                b_sub.append(move)
+                                        piece_that_restricted.legal_moves = b_sub
+                                        cant_be_moved = False
+                                        breaking = True
+                                        break
+                    if (king_x, king_y) in black_pieces_position_list:
+                        breaking = True
+                        break
+
+        if team == 1:
+            if (king_x, king_y) in white_pieces_position_list:
+                cant_be_moved = True
+                piece_that_cant_move = (king_x, king_y)
+                while cant_be_moved and king_y >= 0:
+                    king_y -= 1
+                    w_substract_while_checks_internal.append((king_x, king_y))
+                    if (king_x, king_y) in black_pieces_position_list:
+                        for piece in all_pieces_sprite_group:
+                            if piece.coordinates == (king_x, king_y) and (
+                                    piece in black_rooks or piece in black_queens):
+                                for piece_that_restricted in all_pieces_sprite_group:
+                                    if piece_that_restricted.coordinates == piece_that_cant_move:
+                                        b_sub = []
+                                        for move in piece_that_restricted.legal_moves:
+                                            if move in w_substract_while_checks_internal:
+                                                b_sub.append(move)
+                                        piece_that_restricted.legal_moves = b_sub
+                                        cant_be_moved = False
+                                        breaking = True
+                                        break
+                    if (king_x, king_y) in white_pieces_position_list:
+                        breaking = True
+                        break
+
+    w_substract_while_checks_internal = []
+
+    if team == -1:
+        king_x, king_y = king_black.coordinates
+    else:
+        king_x, king_y = king_white.coordinates
+
+    breaking = False
+
+    while king_y <= 7 and not breaking:
+        king_y += 1
+        w_substract_while_checks_internal.append((king_x, king_y))
+        if team == -1:
+            if (king_x, king_y) in black_pieces_position_list:
+                cant_be_moved = True
+                piece_that_cant_move = (king_x, king_y)
+                while cant_be_moved and king_y <= 7:
+                    king_y += 1
+                    w_substract_while_checks_internal.append((king_x, king_y))
+                    if (king_x, king_y) in white_pieces_position_list:
+                        for piece in all_pieces_sprite_group:
+                            if piece.coordinates == (king_x, king_y) and (
+                                    piece in white_rooks or piece in white_queens):
+                                for piece_that_restricted in all_pieces_sprite_group:
+                                    if piece_that_restricted.coordinates == piece_that_cant_move:
+                                        b_sub = []
+                                        for move in piece_that_restricted.legal_moves:
+                                            if move in w_substract_while_checks_internal:
+                                                b_sub.append(move)
+                                        piece_that_restricted.legal_moves = b_sub
+                                        cant_be_moved = False
+                                        breaking = True
+                                        break
+                    if (king_x, king_y) in black_pieces_position_list:
+                        breaking = True
+                        break
+        if team == 1:
+            if (king_x, king_y) in white_pieces_position_list:
+                cant_be_moved = True
+                piece_that_cant_move = (king_x, king_y)
+                while cant_be_moved and king_y <= 7:
+                    king_y += 1
+                    w_substract_while_checks_internal.append((king_x, king_y))
+                    if (king_x, king_y) in black_pieces_position_list:
+                        for piece in all_pieces_sprite_group:
+                            if piece.coordinates == (king_x, king_y) and (
+                                    piece in black_rooks or piece in black_queens):
+                                for piece_that_restricted in all_pieces_sprite_group:
+                                    if piece_that_restricted.coordinates == piece_that_cant_move:
+                                        b_sub = []
+                                        for move in piece_that_restricted.legal_moves:
+                                            if move in w_substract_while_checks_internal:
+                                                b_sub.append(move)
+                                        piece_that_restricted.legal_moves = b_sub
+                                        cant_be_moved = False
+                                        breaking = True
+                                        break
+                    if (king_x, king_y) in white_pieces_position_list:
+                        breaking = True
+                        break
+
+    w_substract_while_checks_internal = []
+
+    if team == -1:
+        king_x, king_y = king_black.coordinates
+    else:
+        king_x, king_y = king_white.coordinates
+
+    breaking = False
+
+    while king_x <= 7 and king_y <= 7 and not breaking:
+        king_x += 1
+        king_y += 1
+        w_substract_while_checks_internal.append((king_x, king_y))
+        if team == -1:
+            if (king_x, king_y) in black_pieces_position_list:
+                cant_be_moved = True
+                piece_that_cant_move = (king_x, king_y)
+                while cant_be_moved and king_x <= 7 and king_y <= 7:
+                    king_x += 1
+                    king_y += 1
+                    w_substract_while_checks_internal.append((king_x, king_y))
+                    if (king_x, king_y) in white_pieces_position_list:
+                        for piece in all_pieces_sprite_group:
+                            if piece.coordinates == (king_x, king_y) and (
+                                    piece in white_bishops or piece in white_queens):
+                                for piece_that_restricted in all_pieces_sprite_group:
+                                    if piece_that_restricted.coordinates == piece_that_cant_move:
+                                        b_sub = []
+                                        for move in piece_that_restricted.legal_moves:
+                                            if move in w_substract_while_checks_internal:
+                                                b_sub.append(move)
+                                        piece_that_restricted.legal_moves = b_sub
+                                        cant_be_moved = False
+                                        breaking = True
+                                        break
+                    if (king_x, king_y) in black_pieces_position_list:
+                        breaking = True
+                        break
+        if team == 1:
+            if (king_x, king_y) in white_pieces_position_list:
+                cant_be_moved = True
+                piece_that_cant_move = (king_x, king_y)
+                while cant_be_moved and king_x <= 7 and king_y <= 7:
+                    king_x += 1
+                    king_y += 1
+                    w_substract_while_checks_internal.append((king_x, king_y))
+                    if (king_x, king_y) in black_pieces_position_list:
+                        for piece in all_pieces_sprite_group:
+                            if piece.coordinates == (king_x, king_y) and (
+                                    piece in black_bishops or piece in black_queens):
+                                for piece_that_restricted in all_pieces_sprite_group:
+                                    if piece_that_restricted.coordinates == piece_that_cant_move:
+                                        b_sub = []
+                                        for move in piece_that_restricted.legal_moves:
+                                            if move in w_substract_while_checks_internal:
+                                                b_sub.append(move)
+                                        piece_that_restricted.legal_moves = b_sub
+                                        cant_be_moved = False
+                                        breaking = True
+                                        break
+                    if (king_x, king_y) in white_pieces_position_list:
+                        breaking = True
+                        break
+
+    w_substract_while_checks_internal = []
+
+    if team == -1:
+        king_x, king_y = king_black.coordinates
+    else:
+        king_x, king_y = king_white.coordinates
+
+    breaking = False
+
+    while king_x >= 0 and king_y >= 0 and not breaking:
+        king_x -= 1
+        king_y -= 1
+        w_substract_while_checks_internal.append((king_x, king_y))
+        if team == -1:
+            if (king_x, king_y) in black_pieces_position_list:
+                cant_be_moved = True
+                piece_that_cant_move = (king_x, king_y)
+                while cant_be_moved and king_x >= 0 and king_y >= 0:
+                    king_x -= 1
+                    king_y -= 1
+                    w_substract_while_checks_internal.append((king_x, king_y))
+                    if (king_x, king_y) in white_pieces_position_list:
+                        for piece in all_pieces_sprite_group:
+                            if piece.coordinates == (king_x, king_y) and (
+                                    piece in white_bishops or piece in white_queens):
+                                for piece_that_restricted in all_pieces_sprite_group:
+                                    if piece_that_restricted.coordinates == piece_that_cant_move:
+                                        b_sub = []
+                                        for move in piece_that_restricted.legal_moves:
+                                            if move in w_substract_while_checks_internal:
+                                                b_sub.append(move)
+                                        piece_that_restricted.legal_moves = b_sub
+                                        cant_be_moved = False
+                                        breaking = True
+                                        break
+                    if (king_x, king_y) in black_pieces_position_list:
+                        breaking = True
+                        break
+        if team == 1:
+            if (king_x, king_y) in white_pieces_position_list:
+                cant_be_moved = True
+                piece_that_cant_move = (king_x, king_y)
+                while cant_be_moved and king_x >= 0 and king_y >= 0:
+                    king_x -= 1
+                    king_y -= 1
+                    w_substract_while_checks_internal.append((king_x, king_y))
+                    if (king_x, king_y) in black_pieces_position_list:
+                        for piece in all_pieces_sprite_group:
+                            if piece.coordinates == (king_x, king_y) and (
+                                    piece in black_bishops or piece in black_queens):
+                                for piece_that_restricted in all_pieces_sprite_group:
+                                    if piece_that_restricted.coordinates == piece_that_cant_move:
+                                        b_sub = []
+                                        for move in piece_that_restricted.legal_moves:
+                                            if move in w_substract_while_checks_internal:
+                                                b_sub.append(move)
+                                        piece_that_restricted.legal_moves = b_sub
+                                        cant_be_moved = False
+                                        breaking = True
+                                        break
+                    if (king_x, king_y) in white_pieces_position_list:
+                        breaking = True
+                        break
+
+    w_substract_while_checks_internal = []
+
+    if team == -1:
+        king_x, king_y = king_black.coordinates
+    else:
+        king_x, king_y = king_white.coordinates
+
+    breaking = False
+
+    while king_x >= 0 and king_y <= 7 and not breaking:
+        king_x -= 1
+        king_y += 1
+        w_substract_while_checks_internal.append((king_x, king_y))
+        if team == -1:
+            if (king_x, king_y) in black_pieces_position_list:
+                cant_be_moved = True
+                piece_that_cant_move = (king_x, king_y)
+                while cant_be_moved and king_x >= 0 and king_y <= 7:
+                    king_x -= 1
+                    king_y += 1
+                    w_substract_while_checks_internal.append((king_x, king_y))
+                    if (king_x, king_y) in white_pieces_position_list:
+                        for piece in all_pieces_sprite_group:
+                            if piece.coordinates == (king_x, king_y) and (
+                                    piece in white_bishops or piece in white_queens):
+                                for piece_that_restricted in all_pieces_sprite_group:
+                                    if piece_that_restricted.coordinates == piece_that_cant_move:
+                                        b_sub = []
+                                        for move in piece_that_restricted.legal_moves:
+                                            if move in w_substract_while_checks_internal:
+                                                b_sub.append(move)
+                                        piece_that_restricted.legal_moves = b_sub
+                                        cant_be_moved = False
+                                        breaking = True
+                                        break
+                    if (king_x, king_y) in black_pieces_position_list:
+                        breaking = True
+                        break
+        if team == 1:
+            if (king_x, king_y) in white_pieces_position_list:
+                cant_be_moved = True
+                piece_that_cant_move = (king_x, king_y)
+                while cant_be_moved and king_x >= 0 and king_y <= 7:
+                    king_x -= 1
+                    king_y += 1
+                    w_substract_while_checks_internal.append((king_x, king_y))
+                    if (king_x, king_y) in black_pieces_position_list:
+                        for piece in all_pieces_sprite_group:
+                            if piece.coordinates == (king_x, king_y) and (
+                                    piece in black_bishops or piece in black_queens):
+                                for piece_that_restricted in all_pieces_sprite_group:
+                                    if piece_that_restricted.coordinates == piece_that_cant_move:
+                                        b_sub = []
+                                        for move in piece_that_restricted.legal_moves:
+                                            if move in w_substract_while_checks_internal:
+                                                b_sub.append(move)
+                                        piece_that_restricted.legal_moves = b_sub
+                                        cant_be_moved = False
+                                        breaking = True
+                                        break
+                    if (king_x, king_y) in white_pieces_position_list:
+                        breaking = True
+                        break
+
+    w_substract_while_checks_internal = []
+
+    if team == -1:
+        king_x, king_y = king_black.coordinates
+    else:
+        king_x, king_y = king_white.coordinates
+
+    breaking = False
+
+    while king_x <= 7 and king_y >= 0 and not breaking:
+        king_x += 1
+        king_y -= 1
+        w_substract_while_checks_internal.append((king_x, king_y))
+        if team == -1:
+            if (king_x, king_y) in black_pieces_position_list:
+                cant_be_moved = True
+                piece_that_cant_move = (king_x, king_y)
+                while cant_be_moved and king_x <= 7 and king_y >= 0:
+                    king_x += 1
+                    king_y -= 1
+                    w_substract_while_checks_internal.append((king_x, king_y))
+                    if (king_x, king_y) in white_pieces_position_list:
+                        for piece in all_pieces_sprite_group:
+                            if piece.coordinates == (king_x, king_y) and (
+                                    piece in white_bishops or piece in white_queens):
+                                for piece_that_restricted in all_pieces_sprite_group:
+                                    if piece_that_restricted.coordinates == piece_that_cant_move:
+                                        b_sub = []
+                                        for move in piece_that_restricted.legal_moves:
+                                            if move in w_substract_while_checks_internal:
+                                                b_sub.append(move)
+                                        piece_that_restricted.legal_moves = b_sub
+                                        cant_be_moved = False
+                                        breaking = True
+                                        break
+                    if (king_x, king_y) in black_pieces_position_list:
+                        breaking = True
+                        break
+        if team == 1:
+            if (king_x, king_y) in white_pieces_position_list:
+                cant_be_moved = True
+                piece_that_cant_move = (king_x, king_y)
+                while cant_be_moved and king_x <= 7 and king_y >= 0:
+                    king_x += 1
+                    king_y -= 1
+                    w_substract_while_checks_internal.append((king_x, king_y))
+                    if (king_x, king_y) in black_pieces_position_list:
+                        for piece in all_pieces_sprite_group:
+                            if piece.coordinates == (king_x, king_y) and (
+                                    piece in black_bishops or piece in black_queens):
+                                for piece_that_restricted in all_pieces_sprite_group:
+                                    if piece_that_restricted.coordinates == piece_that_cant_move:
+                                        b_sub = []
+                                        for move in piece_that_restricted.legal_moves:
+                                            if move in w_substract_while_checks_internal:
+                                                b_sub.append(move)
+                                        piece_that_restricted.legal_moves = b_sub
+                                        cant_be_moved = False
+                                        breaking = True
+                                        break
+                    if (king_x, king_y) in black_pieces_position_list:
+                        breaking = True
+                        break
+
+
+def substract_for_checks(team):
+    w_substract_while_check = []
+
+    w_substract_while_checks_internal = []
+    if team == -1:
+        king_x, king_y = king_black.coordinates
+    else:
+        king_x, king_y = king_white.coordinates
+
+    while king_x != 0:
+        king_x -= 1
+        w_substract_while_checks_internal.append((king_x, king_y))
+        if team == -1:
+            if (king_x, king_y) in white_pieces_position_list:
+                for piece in all_pieces_sprite_group:
+                    if piece.coordinates == (king_x, king_y) and (piece in white_rooks or piece in white_queens):
+                        w_substract_while_check.extend(w_substract_while_checks_internal)
+            if (king_x, king_y) in black_pieces_position_list:
+                break
+        else:
+            if (king_x, king_y) in black_pieces_position_list:
+                for piece in all_pieces_sprite_group:
+                    if piece.coordinates == (king_x, king_y) and (piece in black_rooks or piece in black_queens):
+                        w_substract_while_check.extend(w_substract_while_checks_internal)
+            if (king_x, king_y) in white_pieces_position_list:
+                break
+
+    w_substract_while_checks_internal = []
+    if team == -1:
+        king_x, king_y = king_black.coordinates
+    else:
+        king_x, king_y = king_white.coordinates
+
+    while king_x != 7:
+        king_x += 1
+        w_substract_while_checks_internal.append((king_x, king_y))
+        if team == -1:
+            if (king_x, king_y) in white_pieces_position_list:
+                for piece in all_pieces_sprite_group:
+                    if piece.coordinates == (king_x, king_y) and (piece in white_rooks or piece in white_queens):
+                        w_substract_while_check.extend(w_substract_while_checks_internal)
+            if (king_x, king_y) in black_pieces_position_list:
+                break
+        else:
+            if (king_x, king_y) in black_pieces_position_list:
+                for piece in all_pieces_sprite_group:
+                    if piece.coordinates == (king_x, king_y) and (piece in black_rooks or piece in black_queens):
+                        w_substract_while_check.extend(w_substract_while_checks_internal)
+            if (king_x, king_y) in white_pieces_position_list:
+                break
+
+    w_substract_while_checks_internal = []
+    if team == -1:
+        king_x, king_y = king_black.coordinates
+    else:
+        king_x, king_y = king_white.coordinates
+
+    while king_y != 0:
+        king_y -= 1
+        w_substract_while_checks_internal.append((king_x, king_y))
+        if team == -1:
+            if (king_x, king_y) in white_pieces_position_list:
+                for piece in all_pieces_sprite_group:
+                    if piece.coordinates == (king_x, king_y) and (piece in white_rooks or piece in white_queens):
+                        w_substract_while_check.extend(w_substract_while_checks_internal)
+            if (king_x, king_y) in black_pieces_position_list:
+                break
+        else:
+            if (king_x, king_y) in black_pieces_position_list:
+                for piece in all_pieces_sprite_group:
+                    if piece.coordinates == (king_x, king_y) and (piece in black_rooks or piece in black_queens):
+                        w_substract_while_check.extend(w_substract_while_checks_internal)
+            if (king_x, king_y) in white_pieces_position_list:
+                break
+
+    w_substract_while_checks_internal = []
+    if team == -1:
+        king_x, king_y = king_black.coordinates
+    else:
+        king_x, king_y = king_white.coordinates
+
+    while king_y != 7:
+        king_y += 1
+        w_substract_while_checks_internal.append((king_x, king_y))
+        if team == -1:
+            if (king_x, king_y) in white_pieces_position_list:
+                for piece in all_pieces_sprite_group:
+                    if piece.coordinates == (king_x, king_y) and (piece in white_rooks or piece in white_queens):
+                        w_substract_while_check.extend(w_substract_while_checks_internal)
+            if (king_x, king_y) in black_pieces_position_list:
+                break
+        else:
+            if (king_x, king_y) in black_pieces_position_list:
+                for piece in all_pieces_sprite_group:
+                    if piece.coordinates == (king_x, king_y) and (piece in black_rooks or piece in black_queens):
+                        w_substract_while_check.extend(w_substract_while_checks_internal)
+            if (king_x, king_y) in white_pieces_position_list:
+                break
+
+    w_substract_while_checks_internal = []
+    if team == -1:
+        king_x, king_y = king_black.coordinates
+    else:
+        king_x, king_y = king_white.coordinates
+
+    while king_x != 0 and king_y != 0:
+        king_x -= 1
+        king_y -= 1
+        w_substract_while_checks_internal.append((king_x, king_y))
+        if team == -1:
+            if (king_x, king_y) in white_pieces_position_list:
+                for piece in all_pieces_sprite_group:
+                    if piece.coordinates == (king_x, king_y) and (piece in white_bishops or piece in white_queens or piece in white_pawns):
+                        w_substract_while_check.extend(w_substract_while_checks_internal)
+            if (king_x, king_y) in black_pieces_position_list:
+                break
+        else:
+            if (king_x, king_y) in black_pieces_position_list:
+                for piece in all_pieces_sprite_group:
+                    if piece.coordinates == (king_x, king_y) and (piece in black_bishops or piece in black_queens or piece in black_pawns):
+                        w_substract_while_check.extend(w_substract_while_checks_internal)
+            if (king_x, king_y) in white_pieces_position_list:
+                break
+
+    w_substract_while_checks_internal = []
+    if team == -1:
+        king_x, king_y = king_black.coordinates
+    else:
+        king_x, king_y = king_white.coordinates
+
+    while king_x != 7 and king_y != 7:
+        king_x += 1
+        king_y += 1
+        w_substract_while_checks_internal.append((king_x, king_y))
+        if team == -1:
+            if (king_x, king_y) in white_pieces_position_list:
+                for piece in all_pieces_sprite_group:
+                    if piece.coordinates == (king_x, king_y) and (piece in white_bishops or piece in white_queens or piece in white_pawns):
+                        w_substract_while_check.extend(w_substract_while_checks_internal)
+            if (king_x, king_y) in black_pieces_position_list:
+                break
+        else:
+            if (king_x, king_y) in black_pieces_position_list:
+                for piece in all_pieces_sprite_group:
+                    if piece.coordinates == (king_x, king_y) and (piece in black_bishops or piece in black_queens or piece in black_pawns):
+                        w_substract_while_check.extend(w_substract_while_checks_internal)
+            if (king_x, king_y) in white_pieces_position_list:
+                break
+
+    w_substract_while_checks_internal = []
+    if team == -1:
+        king_x, king_y = king_black.coordinates
+    else:
+        king_x, king_y = king_white.coordinates
+
+    while king_x != 7 and king_y != 0:
+        king_x += 1
+        king_y -= 1
+        w_substract_while_checks_internal.append((king_x, king_y))
+        if team == -1:
+            if (king_x, king_y) in white_pieces_position_list:
+                for piece in all_pieces_sprite_group:
+                    if piece.coordinates == (king_x, king_y) and (piece in white_bishops or piece in white_queens or piece in white_pawns):
+                        w_substract_while_check.extend(w_substract_while_checks_internal)
+            if (king_x, king_y) in black_pieces_position_list:
+                break
+        else:
+            if (king_x, king_y) in black_pieces_position_list:
+                for piece in all_pieces_sprite_group:
+                    if piece.coordinates == (king_x, king_y) and (piece in black_bishops or piece in black_queens or piece in black_pawns):
+                        w_substract_while_check.extend(w_substract_while_checks_internal)
+            if (king_x, king_y) in white_pieces_position_list:
+                break
+
+    w_substract_while_checks_internal = []
+
+    if team == -1:
+        king_x, king_y = king_black.coordinates
+    else:
+        king_x, king_y = king_white.coordinates
+
+    while king_x != 0 and king_y != 7:
+        king_x -= 1
+        king_y += 1
+        w_substract_while_checks_internal.append((king_x, king_y))
+        if team == -1:
+            if (king_x, king_y) in white_pieces_position_list:
+                for piece in all_pieces_sprite_group:
+                    if piece.coordinates == (king_x, king_y) and (piece in white_bishops or piece in white_queens or piece in white_pawns):
+                        w_substract_while_check.extend(w_substract_while_checks_internal)
+            if (king_x, king_y) in black_pieces_position_list:
+                break
+        else:
+            if (king_x, king_y) in black_pieces_position_list:
+                for piece in all_pieces_sprite_group:
+                    if piece.coordinates == (king_x, king_y) and (piece in black_bishops or piece in black_queens or piece in black_pawns):
+                        w_substract_while_check.extend(w_substract_while_checks_internal)
+            if (king_x, king_y) in white_pieces_position_list:
+                break
+
+    for n in range(2):
+        for i in range(2):
+            for j in range(2):
+                if team == -1:
+                    king_x, king_y = king_black.coordinates
+                else:
+                    king_x, king_y = king_white.coordinates
+                a = 2 * pow(-1, i)
+                b = 1 * pow(-1, j)
+                if n == 0:
+                    king_x += a
+                    king_y += b
+                else:
+                    king_x += b
+                    king_y += a
+
+                if team == -1:
+                    if (king_x, king_y) in white_pieces_position_list:
+                        for piece in all_pieces_sprite_group:
+                            if piece.coordinates == (king_x, king_y) and piece in white_knights:
+                                w_substract_while_check.append((king_x, king_y))
+                else:
+                    if (king_x, king_y) in black_pieces_position_list:
+                        for piece in all_pieces_sprite_group:
+                            if piece.coordinates == (king_x, king_y) and piece in black_knights:
+                                w_substract_while_check.append((king_x, king_y))
+
+    if team == -1:
+        for all_black_piece in all_pieces_sprite_group:
+            if all_black_piece not in kings and all_black_piece.team == team:
+                b_sub = []
+                for legal_move in all_black_piece.legal_moves:
+                    if legal_move in w_substract_while_check:
+                        b_sub.append(legal_move)
+                all_black_piece.legal_moves = b_sub
+
+    else:
+        for all_white_piece in all_pieces_sprite_group:
+            if all_white_piece not in kings and all_white_piece.team == team:
+                b_sub = []
+                for legal_move in all_white_piece.legal_moves:
+                    if legal_move in w_substract_while_check:
+                        b_sub.append(legal_move)
+                all_white_piece.legal_moves = b_sub
 
 
 def calculate_legal_moves():
@@ -1207,6 +1964,14 @@ def calculate_legal_moves():
 
     kings_legal_moves()
 
+    adjusted_for_check(turn * -1)
+
+    if black_king_is_in_check() :
+        substract_for_checks(-1)
+
+    if white_king_is_in_check():
+        substract_for_checks(1)
+
 mouse_is_pressed = False
 name_of_held_piece = ''
 
@@ -1228,7 +1993,7 @@ while True:
         if ev.type == pygame.MOUSEBUTTONUP:
             mouse_is_pressed = False
 
-    chessboard()
+    screen.blit(chess_board, pygame.rect.Rect(0, 0, 1080, 1080))
 
     x_mouse, y_mouse = pygame.mouse.get_pos()
     x_cord, y_cord = get_cords()
@@ -1329,7 +2094,7 @@ while True:
                             if ev.type == pygame.MOUSEBUTTONUP:
                                 mouse_is_pressed = False
 
-                        chessboard()
+                        screen.blit(chess_board, pygame.rect.Rect(0, 0, 1080, 1080))
                         all_pieces_sprite_group.draw(screen)
 
                         choosing_screen = ChoosingBoard(piece.team)
@@ -1359,6 +2124,7 @@ while True:
                                 locals()[f'{counter}'] = Knight(f"{counter}", 1, (piece.coordinates))
                                 all_pieces_sprite_group.add(locals()[f'{counter}'])
                                 knights.add(locals()[f'{counter}'])
+                                white_knights.add(locals()[f'{counter}'])
                                 counter += 1
                                 choosing = False
 
@@ -1367,6 +2133,7 @@ while True:
                                 locals()[f'{counter}'] = Bishop(f"{counter}", 1, (piece.coordinates))
                                 all_pieces_sprite_group.add(locals()[f'{counter}'])
                                 bishops.add(locals()[f'{counter}'])
+                                white_bishops.add(locals()[f'{counter}'])
                                 counter += 1
                                 choosing = False
 
@@ -1375,6 +2142,7 @@ while True:
                                 locals()[f'{counter}'] = Rook(f"{counter}", 1, (piece.coordinates))
                                 all_pieces_sprite_group.add(locals()[f'{counter}'])
                                 rooks.add(locals()[f'{counter}'])
+                                white_rooks.add(locals()[f'{counter}'])
                                 counter += 1
                                 choosing = False
 
@@ -1383,6 +2151,7 @@ while True:
                                 locals()[f'{counter}'] = Queen(f"{counter}", 1, (piece.coordinates))
                                 all_pieces_sprite_group.add(locals()[f'{counter}'])
                                 queens.add(locals()[f'{counter}'])
+                                white_queens.add(locals()[f'{counter}'])
                                 counter += 1
                                 choosing = False
 
@@ -1413,6 +2182,7 @@ while True:
                                 locals()[f'{counter}'] = Knight(f"{counter}", -1, (piece.coordinates))
                                 all_pieces_sprite_group.add(locals()[f'{counter}'])
                                 knights.add(locals()[f'{counter}'])
+                                black_knights.add(locals()[f'{counter}'])
                                 counter += 1
                                 choosing = False
 
@@ -1421,6 +2191,7 @@ while True:
                                 locals()[f'{counter}'] = Bishop(f"{counter}", -1, (piece.coordinates))
                                 all_pieces_sprite_group.add(locals()[f'{counter}'])
                                 bishops.add(locals()[f'{counter}'])
+                                black_bishops.add(locals()[f'{counter}'])
                                 counter += 1
                                 choosing = False
 
@@ -1429,6 +2200,7 @@ while True:
                                 locals()[f'{counter}'] = Rook(f"{counter}", -1, (piece.coordinates))
                                 all_pieces_sprite_group.add(locals()[f'{counter}'])
                                 rooks.add(locals()[f'{counter}'])
+                                black_rooks.add(locals()[f'{counter}'])
                                 counter += 1
                                 choosing = False
 
@@ -1437,6 +2209,7 @@ while True:
                                 locals()[f'{counter}'] = Queen(f"{counter}", -1, (piece.coordinates))
                                 all_pieces_sprite_group.add(locals()[f'{counter}'])
                                 queens.add(locals()[f'{counter}'])
+                                black_queens.add(locals()[f'{counter}'])
                                 counter += 1
                                 choosing = False
 
@@ -1485,6 +2258,35 @@ while True:
             # Ends the sequence
             pygame.mouse.set_visible(True)
             name_of_held_piece = ''
+
+    if black_king_is_in_check():
+        black_check_mate = True
+        for piece in all_pieces_sprite_group:
+            if piece.team == -1 and piece.legal_moves != []:
+                black_check_mate = False
+        if king_black.legal_moves != []:
+            black_check_mate = False
+
+    if white_king_is_in_check():
+        white_check_mate = True
+        for piece in all_pieces_sprite_group:
+            if piece.team ==  1 and piece.legal_moves != []:
+                white_check_mate = False
+        if king_white.legal_moves != []:
+            white_check_mate = False
+
+    while black_check_mate or white_check_mate:
+        for ev in pygame.event.get():
+            pygame.display.flip()
+            if ev.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+        screen.blit(chess_board, pygame.rect.Rect(0, 0, 1080, 1080))
+        all_pieces_sprite_group.draw(screen)
+        screen.blit(check_mate, pygame.rect.Rect(100, 0, 1080, 1080))
+        pygame.display.flip()
+        clock.tick(60)
+
 
     all_pieces_sprite_group.draw(screen)
     pygame.display.flip()
