@@ -969,7 +969,9 @@ def substract_for_checks(team):
     else:
         king_x, king_y = king_white.coordinates
 
-    while king_x != 0:
+    breaking = False
+
+    while king_x != 0 and not breaking:
         king_x -= 1
         w_substract_while_checks_internal.append((king_x, king_y))
         if team == -1:
@@ -977,15 +979,17 @@ def substract_for_checks(team):
                 for piece in all_pieces_sprite_group:
                     if piece.coordinates == (king_x, king_y) and (piece in white_rooks or piece in white_queens):
                         w_substract_while_check.extend(w_substract_while_checks_internal)
+                        breaking = True
             if (king_x, king_y) in black_pieces_position_list:
-                break
+                breaking = True
         else:
             if (king_x, king_y) in black_pieces_position_list:
                 for piece in all_pieces_sprite_group:
                     if piece.coordinates == (king_x, king_y) and (piece in black_rooks or piece in black_queens):
                         w_substract_while_check.extend(w_substract_while_checks_internal)
+                        breaking = True
             if (king_x, king_y) in white_pieces_position_list:
-                break
+                breaking = True
 
     w_substract_while_checks_internal = []
     if team == -1:
@@ -993,7 +997,9 @@ def substract_for_checks(team):
     else:
         king_x, king_y = king_white.coordinates
 
-    while king_x != 7:
+    breaking = False
+
+    while king_x != 7 and not breaking:
         king_x += 1
         w_substract_while_checks_internal.append((king_x, king_y))
         if team == -1:
@@ -1001,15 +1007,17 @@ def substract_for_checks(team):
                 for piece in all_pieces_sprite_group:
                     if piece.coordinates == (king_x, king_y) and (piece in white_rooks or piece in white_queens):
                         w_substract_while_check.extend(w_substract_while_checks_internal)
+                        breaking = True
             if (king_x, king_y) in black_pieces_position_list:
-                break
+                breaking = True
         else:
             if (king_x, king_y) in black_pieces_position_list:
                 for piece in all_pieces_sprite_group:
                     if piece.coordinates == (king_x, king_y) and (piece in black_rooks or piece in black_queens):
                         w_substract_while_check.extend(w_substract_while_checks_internal)
+                        breaking = True
             if (king_x, king_y) in white_pieces_position_list:
-                break
+                breaking = True
 
     w_substract_while_checks_internal = []
     if team == -1:
@@ -1017,7 +1025,9 @@ def substract_for_checks(team):
     else:
         king_x, king_y = king_white.coordinates
 
-    while king_y != 0:
+    breaking = False
+
+    while king_y != 0 and not breaking:
         king_y -= 1
         w_substract_while_checks_internal.append((king_x, king_y))
         if team == -1:
@@ -1025,15 +1035,17 @@ def substract_for_checks(team):
                 for piece in all_pieces_sprite_group:
                     if piece.coordinates == (king_x, king_y) and (piece in white_rooks or piece in white_queens):
                         w_substract_while_check.extend(w_substract_while_checks_internal)
+                        breaking = True
             if (king_x, king_y) in black_pieces_position_list:
-                break
+                breaking = True
         else:
             if (king_x, king_y) in black_pieces_position_list:
                 for piece in all_pieces_sprite_group:
                     if piece.coordinates == (king_x, king_y) and (piece in black_rooks or piece in black_queens):
                         w_substract_while_check.extend(w_substract_while_checks_internal)
+                        breaking = True
             if (king_x, king_y) in white_pieces_position_list:
-                break
+                breaking = True
 
     w_substract_while_checks_internal = []
     if team == -1:
@@ -1041,7 +1053,9 @@ def substract_for_checks(team):
     else:
         king_x, king_y = king_white.coordinates
 
-    while king_y != 7:
+    breaking = False
+
+    while king_y != 7 and not breaking:
         king_y += 1
         w_substract_while_checks_internal.append((king_x, king_y))
         if team == -1:
@@ -1049,15 +1063,17 @@ def substract_for_checks(team):
                 for piece in all_pieces_sprite_group:
                     if piece.coordinates == (king_x, king_y) and (piece in white_rooks or piece in white_queens):
                         w_substract_while_check.extend(w_substract_while_checks_internal)
+                        breaking = True
             if (king_x, king_y) in black_pieces_position_list:
-                break
+                breaking = True
         else:
             if (king_x, king_y) in black_pieces_position_list:
                 for piece in all_pieces_sprite_group:
                     if piece.coordinates == (king_x, king_y) and (piece in black_rooks or piece in black_queens):
                         w_substract_while_check.extend(w_substract_while_checks_internal)
+                        breaking = True
             if (king_x, king_y) in white_pieces_position_list:
-                break
+                breaking = True
 
     w_substract_while_checks_internal = []
     if team == -1:
@@ -1065,24 +1081,28 @@ def substract_for_checks(team):
     else:
         king_x, king_y = king_white.coordinates
 
-    while king_x != 0 and king_y != 0:
+    breaking = False
+
+    while king_x != 0 and king_y != 0 and not breaking:
         king_x -= 1
         king_y -= 1
         w_substract_while_checks_internal.append((king_x, king_y))
         if team == -1:
             if (king_x, king_y) in white_pieces_position_list:
                 for piece in all_pieces_sprite_group:
-                    if piece.coordinates == (king_x, king_y) and (piece in white_bishops or piece in white_queens or piece in white_pawns):
+                    if piece.coordinates == (king_x, king_y) and (piece in white_bishops or piece in white_queens):
                         w_substract_while_check.extend(w_substract_while_checks_internal)
+                        breaking = True
             if (king_x, king_y) in black_pieces_position_list:
-                break
+                breaking = True
         else:
             if (king_x, king_y) in black_pieces_position_list:
                 for piece in all_pieces_sprite_group:
-                    if piece.coordinates == (king_x, king_y) and (piece in black_bishops or piece in black_queens or piece in black_pawns):
+                    if piece.coordinates == (king_x, king_y) and (piece in black_bishops or piece in black_queens):
                         w_substract_while_check.extend(w_substract_while_checks_internal)
+                        breaking = True
             if (king_x, king_y) in white_pieces_position_list:
-                break
+                breaking = True
 
     w_substract_while_checks_internal = []
     if team == -1:
@@ -1090,24 +1110,28 @@ def substract_for_checks(team):
     else:
         king_x, king_y = king_white.coordinates
 
-    while king_x != 7 and king_y != 7:
+    breaking = False
+
+    while king_x != 7 and king_y != 7 and not breaking:
         king_x += 1
         king_y += 1
         w_substract_while_checks_internal.append((king_x, king_y))
         if team == -1:
             if (king_x, king_y) in white_pieces_position_list:
                 for piece in all_pieces_sprite_group:
-                    if piece.coordinates == (king_x, king_y) and (piece in white_bishops or piece in white_queens or piece in white_pawns):
+                    if piece.coordinates == (king_x, king_y) and (piece in white_bishops or piece in white_queens):
                         w_substract_while_check.extend(w_substract_while_checks_internal)
+                        breaking = True
             if (king_x, king_y) in black_pieces_position_list:
-                break
+                breaking = True
         else:
             if (king_x, king_y) in black_pieces_position_list:
                 for piece in all_pieces_sprite_group:
-                    if piece.coordinates == (king_x, king_y) and (piece in black_bishops or piece in black_queens or piece in black_pawns):
+                    if piece.coordinates == (king_x, king_y) and (piece in black_bishops or piece in black_queens):
                         w_substract_while_check.extend(w_substract_while_checks_internal)
+                        breaking = True
             if (king_x, king_y) in white_pieces_position_list:
-                break
+                breaking = True
 
     w_substract_while_checks_internal = []
     if team == -1:
@@ -1115,24 +1139,28 @@ def substract_for_checks(team):
     else:
         king_x, king_y = king_white.coordinates
 
-    while king_x != 7 and king_y != 0:
+    breaking = False
+
+    while king_x != 7 and king_y != 0 and not breaking:
         king_x += 1
         king_y -= 1
         w_substract_while_checks_internal.append((king_x, king_y))
         if team == -1:
             if (king_x, king_y) in white_pieces_position_list:
                 for piece in all_pieces_sprite_group:
-                    if piece.coordinates == (king_x, king_y) and (piece in white_bishops or piece in white_queens or piece in white_pawns):
+                    if piece.coordinates == (king_x, king_y) and (piece in white_bishops or piece in white_queens):
                         w_substract_while_check.extend(w_substract_while_checks_internal)
+                        breaking = True
             if (king_x, king_y) in black_pieces_position_list:
-                break
+                breaking = True
         else:
             if (king_x, king_y) in black_pieces_position_list:
                 for piece in all_pieces_sprite_group:
-                    if piece.coordinates == (king_x, king_y) and (piece in black_bishops or piece in black_queens or piece in black_pawns):
+                    if piece.coordinates == (king_x, king_y) and (piece in black_bishops or piece in black_queens):
                         w_substract_while_check.extend(w_substract_while_checks_internal)
+                        breaking = True
             if (king_x, king_y) in white_pieces_position_list:
-                break
+                breaking = True
 
     w_substract_while_checks_internal = []
 
@@ -1141,24 +1169,54 @@ def substract_for_checks(team):
     else:
         king_x, king_y = king_white.coordinates
 
-    while king_x != 0 and king_y != 7:
+    breaking = False
+
+    while king_x != 0 and king_y != 7 and not breaking:
         king_x -= 1
         king_y += 1
         w_substract_while_checks_internal.append((king_x, king_y))
         if team == -1:
             if (king_x, king_y) in white_pieces_position_list:
                 for piece in all_pieces_sprite_group:
-                    if piece.coordinates == (king_x, king_y) and (piece in white_bishops or piece in white_queens or piece in white_pawns):
+                    if piece.coordinates == (king_x, king_y) and (piece in white_bishops or piece in white_queens):
                         w_substract_while_check.extend(w_substract_while_checks_internal)
+                        breaking = True
             if (king_x, king_y) in black_pieces_position_list:
-                break
+                breaking = True
         else:
             if (king_x, king_y) in black_pieces_position_list:
                 for piece in all_pieces_sprite_group:
-                    if piece.coordinates == (king_x, king_y) and (piece in black_bishops or piece in black_queens or piece in black_pawns):
+                    if piece.coordinates == (king_x, king_y) and (piece in black_bishops or piece in black_queens):
                         w_substract_while_check.extend(w_substract_while_checks_internal)
+                        breaking = True
             if (king_x, king_y) in white_pieces_position_list:
-                break
+                breaking = True
+
+    if team == -1:
+        king_x, king_y = king_black.coordinates
+    else:
+        king_x, king_y = king_white.coordinates
+
+    if team == -1:
+        for i in range(2):
+            king_y += 1
+            king_x -= 1 + (-3 * i)
+            for piece in white_pawns:
+                if piece.coordinates == (king_x, king_y):
+                    w_substract_while_check.extend(w_substract_while_checks_internal)
+
+    if team == -1:
+        king_x, king_y = king_black.coordinates
+    else:
+        king_x, king_y = king_white.coordinates
+
+    if team == 1:
+        for i in range(2):
+            king_y -= 1
+            king_x -= 1 + (-3 * i)
+            for piece in black_pawns:
+                if piece.coordinates == (king_x, king_y):
+                    w_substract_while_check.extend(w_substract_while_checks_internal)
 
     for n in range(2):
         for i in range(2):
