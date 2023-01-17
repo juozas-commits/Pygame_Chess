@@ -518,7 +518,7 @@ def do_not_uncover_check(team):
             if (king_x, king_y) in black_pieces_position_list:
                 cant_be_moved = True
                 piece_that_cant_move = (king_x, king_y)
-                while cant_be_moved and king_x >= 0:
+                while cant_be_moved and king_x >= 0 and not breaking:
                     king_x -= 1
                     w_substract_while_checks_internal.append((king_x, king_y))
                     if (king_x, king_y) in white_pieces_position_list:
@@ -534,15 +534,15 @@ def do_not_uncover_check(team):
                                         piece_that_restricted.legal_moves = b_sub
                                         cant_be_moved = False
                                         breaking = True
-                                        break
+                            else:
+                                breaking = True
                     if (king_x, king_y) in black_pieces_position_list:
                         breaking = True
-                        break
         if team == 1:
             if (king_x, king_y) in white_pieces_position_list:
                 cant_be_moved = True
                 piece_that_cant_move = (king_x, king_y)
-                while cant_be_moved and king_x >= 0:
+                while cant_be_moved and king_x >= 0 and not breaking:
                     king_x -= 1
                     w_substract_while_checks_internal.append((king_x, king_y))
                     if (king_x, king_y) in black_pieces_position_list:
@@ -558,10 +558,10 @@ def do_not_uncover_check(team):
                                         piece_that_restricted.legal_moves = b_sub
                                         cant_be_moved = False
                                         breaking = True
-                                        break
+                            else:
+                                breaking = True
                     if (king_x, king_y) in white_pieces_position_list:
                         breaking = True
-                        break
 
     w_substract_while_checks_internal = []
 
@@ -579,7 +579,7 @@ def do_not_uncover_check(team):
             if (king_x, king_y) in black_pieces_position_list:
                 cant_be_moved = True
                 piece_that_cant_move = (king_x, king_y)
-                while cant_be_moved and king_x <= 7:
+                while cant_be_moved and king_x <= 7 and not breaking:
                     king_x += 1
                     w_substract_while_checks_internal.append((king_x, king_y))
                     if (king_x, king_y) in white_pieces_position_list:
@@ -595,15 +595,15 @@ def do_not_uncover_check(team):
                                         piece_that_restricted.legal_moves = b_sub
                                         cant_be_moved = False
                                         breaking = True
-                                        break
+                            else:
+                                breaking = True
                     if (king_x, king_y) in black_pieces_position_list:
                         breaking = True
-                        break
         if team == 1:
             if (king_x, king_y) in white_pieces_position_list:
                 cant_be_moved = True
                 piece_that_cant_move = (king_x, king_y)
-                while cant_be_moved and king_x <= 7:
+                while cant_be_moved and king_x <= 7 and not breaking:
                     king_x += 1
                     w_substract_while_checks_internal.append((king_x, king_y))
                     if (king_x, king_y) in black_pieces_position_list:
@@ -619,10 +619,10 @@ def do_not_uncover_check(team):
                                         piece_that_restricted.legal_moves = b_sub
                                         cant_be_moved = False
                                         breaking = True
-                                        break
+                            else:
+                                breaking = True
                     if (king_x, king_y) in white_pieces_position_list:
                         breaking = True
-                        break
 
     w_substract_while_checks_internal = []
 
@@ -640,7 +640,7 @@ def do_not_uncover_check(team):
             if (king_x, king_y) in black_pieces_position_list:
                 cant_be_moved = True
                 piece_that_cant_move = (king_x, king_y)
-                while cant_be_moved and king_y >= 0:
+                while cant_be_moved and king_y >= 0 and not breaking:
                     king_y -= 1
                     w_substract_while_checks_internal.append((king_x, king_y))
                     if (king_x, king_y) in white_pieces_position_list:
@@ -656,16 +656,16 @@ def do_not_uncover_check(team):
                                         piece_that_restricted.legal_moves = b_sub
                                         cant_be_moved = False
                                         breaking = True
-                                        break
+                            else:
+                                breaking = True
                     if (king_x, king_y) in black_pieces_position_list:
                         breaking = True
-                        break
 
         if team == 1:
             if (king_x, king_y) in white_pieces_position_list:
                 cant_be_moved = True
                 piece_that_cant_move = (king_x, king_y)
-                while cant_be_moved and king_y >= 0:
+                while cant_be_moved and king_y >= 0 and not breaking:
                     king_y -= 1
                     w_substract_while_checks_internal.append((king_x, king_y))
                     if (king_x, king_y) in black_pieces_position_list:
@@ -681,10 +681,10 @@ def do_not_uncover_check(team):
                                         piece_that_restricted.legal_moves = b_sub
                                         cant_be_moved = False
                                         breaking = True
-                                        break
+                            else:
+                                breaking = True
                     if (king_x, king_y) in white_pieces_position_list:
                         breaking = True
-                        break
 
     w_substract_while_checks_internal = []
 
@@ -702,7 +702,7 @@ def do_not_uncover_check(team):
             if (king_x, king_y) in black_pieces_position_list:
                 cant_be_moved = True
                 piece_that_cant_move = (king_x, king_y)
-                while cant_be_moved and king_y <= 7:
+                while cant_be_moved and king_y <= 7 and not breaking:
                     king_y += 1
                     w_substract_while_checks_internal.append((king_x, king_y))
                     if (king_x, king_y) in white_pieces_position_list:
@@ -718,15 +718,15 @@ def do_not_uncover_check(team):
                                         piece_that_restricted.legal_moves = b_sub
                                         cant_be_moved = False
                                         breaking = True
-                                        break
+                            else:
+                                breaking = True
                     if (king_x, king_y) in black_pieces_position_list:
                         breaking = True
-                        break
         if team == 1:
             if (king_x, king_y) in white_pieces_position_list:
                 cant_be_moved = True
                 piece_that_cant_move = (king_x, king_y)
-                while cant_be_moved and king_y <= 7:
+                while cant_be_moved and king_y <= 7 and not breaking:
                     king_y += 1
                     w_substract_while_checks_internal.append((king_x, king_y))
                     if (king_x, king_y) in black_pieces_position_list:
@@ -742,10 +742,10 @@ def do_not_uncover_check(team):
                                         piece_that_restricted.legal_moves = b_sub
                                         cant_be_moved = False
                                         breaking = True
-                                        break
+                            else:
+                                breaking = True
                     if (king_x, king_y) in white_pieces_position_list:
                         breaking = True
-                        break
 
     w_substract_while_checks_internal = []
 
@@ -764,7 +764,7 @@ def do_not_uncover_check(team):
             if (king_x, king_y) in black_pieces_position_list:
                 cant_be_moved = True
                 piece_that_cant_move = (king_x, king_y)
-                while cant_be_moved and king_x <= 7 and king_y <= 7:
+                while cant_be_moved and king_x <= 7 and king_y <= 7 and not breaking:
                     king_x += 1
                     king_y += 1
                     w_substract_while_checks_internal.append((king_x, king_y))
@@ -781,15 +781,15 @@ def do_not_uncover_check(team):
                                         piece_that_restricted.legal_moves = b_sub
                                         cant_be_moved = False
                                         breaking = True
-                                        break
+                            else:
+                                breaking = True
                     if (king_x, king_y) in black_pieces_position_list:
                         breaking = True
-                        break
         if team == 1:
             if (king_x, king_y) in white_pieces_position_list:
                 cant_be_moved = True
                 piece_that_cant_move = (king_x, king_y)
-                while cant_be_moved and king_x <= 7 and king_y <= 7:
+                while cant_be_moved and king_x <= 7 and king_y <= 7 and not breaking:
                     king_x += 1
                     king_y += 1
                     w_substract_while_checks_internal.append((king_x, king_y))
@@ -806,10 +806,10 @@ def do_not_uncover_check(team):
                                         piece_that_restricted.legal_moves = b_sub
                                         cant_be_moved = False
                                         breaking = True
-                                        break
+                            else:
+                                breaking = True
                     if (king_x, king_y) in white_pieces_position_list:
                         breaking = True
-                        break
 
     w_substract_while_checks_internal = []
 
@@ -828,7 +828,7 @@ def do_not_uncover_check(team):
             if (king_x, king_y) in black_pieces_position_list:
                 cant_be_moved = True
                 piece_that_cant_move = (king_x, king_y)
-                while cant_be_moved and king_x >= 0 and king_y >= 0:
+                while cant_be_moved and king_x >= 0 and king_y >= 0 and not breaking:
                     king_x -= 1
                     king_y -= 1
                     w_substract_while_checks_internal.append((king_x, king_y))
@@ -845,15 +845,15 @@ def do_not_uncover_check(team):
                                         piece_that_restricted.legal_moves = b_sub
                                         cant_be_moved = False
                                         breaking = True
-                                        break
+                            else:
+                                breaking = True
                     if (king_x, king_y) in black_pieces_position_list:
                         breaking = True
-                        break
         if team == 1:
             if (king_x, king_y) in white_pieces_position_list:
                 cant_be_moved = True
                 piece_that_cant_move = (king_x, king_y)
-                while cant_be_moved and king_x >= 0 and king_y >= 0:
+                while cant_be_moved and king_x >= 0 and king_y >= 0 and not breaking:
                     king_x -= 1
                     king_y -= 1
                     w_substract_while_checks_internal.append((king_x, king_y))
@@ -870,10 +870,10 @@ def do_not_uncover_check(team):
                                         piece_that_restricted.legal_moves = b_sub
                                         cant_be_moved = False
                                         breaking = True
-                                        break
+                            else:
+                                breaking = True
                     if (king_x, king_y) in white_pieces_position_list:
                         breaking = True
-                        break
 
     w_substract_while_checks_internal = []
 
@@ -892,7 +892,7 @@ def do_not_uncover_check(team):
             if (king_x, king_y) in black_pieces_position_list:
                 cant_be_moved = True
                 piece_that_cant_move = (king_x, king_y)
-                while cant_be_moved and king_x >= 0 and king_y <= 7:
+                while cant_be_moved and king_x >= 0 and king_y <= 7 and not breaking:
                     king_x -= 1
                     king_y += 1
                     w_substract_while_checks_internal.append((king_x, king_y))
@@ -909,15 +909,15 @@ def do_not_uncover_check(team):
                                         piece_that_restricted.legal_moves = b_sub
                                         cant_be_moved = False
                                         breaking = True
-                                        break
+                            else:
+                                breaking = True
                     if (king_x, king_y) in black_pieces_position_list:
                         breaking = True
-                        break
         if team == 1:
             if (king_x, king_y) in white_pieces_position_list:
                 cant_be_moved = True
                 piece_that_cant_move = (king_x, king_y)
-                while cant_be_moved and king_x >= 0 and king_y <= 7:
+                while cant_be_moved and king_x >= 0 and king_y <= 7 and not breaking:
                     king_x -= 1
                     king_y += 1
                     w_substract_while_checks_internal.append((king_x, king_y))
@@ -934,10 +934,10 @@ def do_not_uncover_check(team):
                                         piece_that_restricted.legal_moves = b_sub
                                         cant_be_moved = False
                                         breaking = True
-                                        break
+                            else:
+                                breaking = True
                     if (king_x, king_y) in white_pieces_position_list:
                         breaking = True
-                        break
 
     w_substract_while_checks_internal = []
 
@@ -956,7 +956,7 @@ def do_not_uncover_check(team):
             if (king_x, king_y) in black_pieces_position_list:
                 cant_be_moved = True
                 piece_that_cant_move = (king_x, king_y)
-                while cant_be_moved and king_x <= 7 and king_y >= 0:
+                while cant_be_moved and king_x <= 7 and king_y >= 0 and not breaking:
                     king_x += 1
                     king_y -= 1
                     w_substract_while_checks_internal.append((king_x, king_y))
@@ -973,15 +973,15 @@ def do_not_uncover_check(team):
                                         piece_that_restricted.legal_moves = b_sub
                                         cant_be_moved = False
                                         breaking = True
-                                        break
+                            else:
+                                breaking = True
                     if (king_x, king_y) in black_pieces_position_list:
                         breaking = True
-                        break
         if team == 1:
             if (king_x, king_y) in white_pieces_position_list:
                 cant_be_moved = True
                 piece_that_cant_move = (king_x, king_y)
-                while cant_be_moved and king_x <= 7 and king_y >= 0:
+                while cant_be_moved and king_x <= 7 and king_y >= 0 and not breaking:
                     king_x += 1
                     king_y -= 1
                     w_substract_while_checks_internal.append((king_x, king_y))
@@ -998,10 +998,10 @@ def do_not_uncover_check(team):
                                         piece_that_restricted.legal_moves = b_sub
                                         cant_be_moved = False
                                         breaking = True
-                                        break
+                            else:
+                                breaking = True
                     if (king_x, king_y) in black_pieces_position_list:
                         breaking = True
-                        break
 
 
 # This method kicks in while in check and subtracts all the moves that aren't covering check or capturing checking piece
