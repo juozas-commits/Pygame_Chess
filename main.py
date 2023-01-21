@@ -235,6 +235,7 @@ pawn_white_f = Pawn('pawn_white_b', 1, (6, 6))
 pawn_white_g = Pawn('pawn_white_c', 1, (5, 6))
 pawn_white_h = Pawn('pawn_white_a', 1, (7, 6))
 
+
 # Pawn setting
 # pawn_white_f = Pawn('pawn_white_c', 1, (1, 6))
 # pawn_black_g = Pawn('pawn_black_b', -1, (2, 4))
@@ -1072,7 +1073,7 @@ def subtract_when_in_checks(team):
                     if piece.coordinates == (king_x, king_y) and (piece in white_rooks or piece in white_queens):
                         subtract_while_check.extend(subtract_while_checks_local)
                         black_check_count += 1
-                        breaking = True
+                breaking = True
             if (king_x, king_y) in black_pieces_position_list:
                 breaking = True
         else:
@@ -1081,7 +1082,7 @@ def subtract_when_in_checks(team):
                     if piece.coordinates == (king_x, king_y) and (piece in black_rooks or piece in black_queens):
                         subtract_while_check.extend(subtract_while_checks_local)
                         white_check_count += 1
-                        breaking = True
+                breaking = True
             if (king_x, king_y) in white_pieces_position_list:
                 breaking = True
 
@@ -1102,7 +1103,7 @@ def subtract_when_in_checks(team):
                     if piece.coordinates == (king_x, king_y) and (piece in white_rooks or piece in white_queens):
                         subtract_while_check.extend(subtract_while_checks_local)
                         black_check_count += 1
-                        breaking = True
+                breaking = True
             if (king_x, king_y) in black_pieces_position_list:
                 breaking = True
         else:
@@ -1111,7 +1112,7 @@ def subtract_when_in_checks(team):
                     if piece.coordinates == (king_x, king_y) and (piece in black_rooks or piece in black_queens):
                         subtract_while_check.extend(subtract_while_checks_local)
                         white_check_count += 1
-                        breaking = True
+                breaking = True
             if (king_x, king_y) in white_pieces_position_list:
                 breaking = True
 
@@ -1132,7 +1133,7 @@ def subtract_when_in_checks(team):
                     if piece.coordinates == (king_x, king_y) and (piece in white_rooks or piece in white_queens):
                         subtract_while_check.extend(subtract_while_checks_local)
                         black_check_count += 1
-                        breaking = True
+                breaking = True
             if (king_x, king_y) in black_pieces_position_list:
                 breaking = True
         else:
@@ -1141,7 +1142,7 @@ def subtract_when_in_checks(team):
                     if piece.coordinates == (king_x, king_y) and (piece in black_rooks or piece in black_queens):
                         subtract_while_check.extend(subtract_while_checks_local)
                         white_check_count += 1
-                        breaking = True
+                breaking = True
             if (king_x, king_y) in white_pieces_position_list:
                 breaking = True
 
@@ -1162,7 +1163,7 @@ def subtract_when_in_checks(team):
                     if piece.coordinates == (king_x, king_y) and (piece in white_rooks or piece in white_queens):
                         subtract_while_check.extend(subtract_while_checks_local)
                         black_check_count += 1
-                        breaking = True
+                breaking = True
             if (king_x, king_y) in black_pieces_position_list:
                 breaking = True
         else:
@@ -1171,7 +1172,7 @@ def subtract_when_in_checks(team):
                     if piece.coordinates == (king_x, king_y) and (piece in black_rooks or piece in black_queens):
                         subtract_while_check.extend(subtract_while_checks_local)
                         white_check_count += 1
-                        breaking = True
+                breaking = True
             if (king_x, king_y) in white_pieces_position_list:
                 breaking = True
 
@@ -1194,7 +1195,7 @@ def subtract_when_in_checks(team):
                     if piece.coordinates == (king_x, king_y) and (piece in white_bishops or piece in white_queens):
                         subtract_while_check.extend(subtract_while_checks_local)
                         black_check_count += 1
-                        breaking = True
+                breaking = True
             if (king_x, king_y) in black_pieces_position_list:
                 breaking = True
         else:
@@ -1203,7 +1204,7 @@ def subtract_when_in_checks(team):
                     if piece.coordinates == (king_x, king_y) and (piece in black_bishops or piece in black_queens):
                         subtract_while_check.extend(subtract_while_checks_local)
                         white_check_count += 1
-                        breaking = True
+                breaking = True
             if (king_x, king_y) in white_pieces_position_list:
                 breaking = True
 
@@ -1225,7 +1226,7 @@ def subtract_when_in_checks(team):
                     if piece.coordinates == (king_x, king_y) and (piece in white_bishops or piece in white_queens):
                         subtract_while_check.extend(subtract_while_checks_local)
                         black_check_count += 1
-                        breaking = True
+                breaking = True
             if (king_x, king_y) in black_pieces_position_list:
                 breaking = True
         else:
@@ -1234,7 +1235,7 @@ def subtract_when_in_checks(team):
                     if piece.coordinates == (king_x, king_y) and (piece in black_bishops or piece in black_queens):
                         subtract_while_check.extend(subtract_while_checks_local)
                         white_check_count += 1
-                        breaking = True
+                breaking = True
             if (king_x, king_y) in white_pieces_position_list:
                 breaking = True
 
@@ -1256,7 +1257,7 @@ def subtract_when_in_checks(team):
                     if piece.coordinates == (king_x, king_y) and (piece in white_bishops or piece in white_queens):
                         subtract_while_check.extend(subtract_while_checks_local)
                         black_check_count += 1
-                        breaking = True
+                breaking = True
             if (king_x, king_y) in black_pieces_position_list:
                 breaking = True
         else:
@@ -1265,7 +1266,7 @@ def subtract_when_in_checks(team):
                     if piece.coordinates == (king_x, king_y) and (piece in black_bishops or piece in black_queens):
                         subtract_while_check.extend(subtract_while_checks_local)
                         white_check_count += 1
-                        breaking = True
+                breaking = True
             if (king_x, king_y) in white_pieces_position_list:
                 breaking = True
 
@@ -1288,7 +1289,7 @@ def subtract_when_in_checks(team):
                     if piece.coordinates == (king_x, king_y) and (piece in white_bishops or piece in white_queens):
                         subtract_while_check.extend(subtract_while_checks_local)
                         black_check_count += 1
-                        breaking = True
+                breaking = True
             if (king_x, king_y) in black_pieces_position_list:
                 breaking = True
         else:
@@ -1297,7 +1298,7 @@ def subtract_when_in_checks(team):
                     if piece.coordinates == (king_x, king_y) and (piece in black_bishops or piece in black_queens):
                         subtract_while_check.extend(subtract_while_checks_local)
                         white_check_count += 1
-                        breaking = True
+                breaking = True
             if (king_x, king_y) in white_pieces_position_list:
                 breaking = True
 
@@ -1368,8 +1369,6 @@ def subtract_when_in_checks(team):
                 all_white_piece.legal_moves = b_sub
 
 
-
-
 # The main method for calculating legal moves each turn
 def calculate_legal_moves():
     update_white_pieces_positions()
@@ -1408,10 +1407,10 @@ def calculate_legal_moves():
                     if not check_if_coordinates_in_enemy_team(all_piece.team, piece_offset_x, piece_offset_y) and not \
                             check_if_coordinates_in_native_team(all_piece.team, piece_offset_x, piece_offset_y):
                         all_piece.legal_moves.append((piece_offset_x, piece_offset_y))
-                        if all_piece.team == -1:
-                            piece_offset_y -= 1
-                        else:
-                            piece_offset_y += 1
+                    if all_piece.team == -1:
+                        piece_offset_y -= 1
+                    else:
+                        piece_offset_y += 1
             for i in range(2):
                 piece_offset_x -= 1 + (-3 * i)
                 if all_piece.team == 1:
@@ -2121,7 +2120,7 @@ def calculate_legal_moves():
 
     kings_legal_moves()
 
-    do_not_uncover_check(turn * -1)
+    do_not_uncover_check(turn)
 
     if black_king_is_in_check():
         subtract_when_in_checks(-1)
@@ -2134,8 +2133,12 @@ mouse_is_pressed = False
 name_of_held_piece = ''
 
 turn = 1
-counter = 0
+move_counter = 0
+promotion_counter = 0
 
+
+
+on_move = 0
 calculate_legal_moves()
 
 # Main loop
@@ -2185,24 +2188,6 @@ while True:
 
             # If the mouse let go of piece above the square that is in legal moves.
             if get_cords() in piece.legal_moves:
-                backup_coordinates = piece.coordinates
-
-                # Checks if piece Pawn moved two, and if so adds can_be_captured_en_pasant.
-                if piece in all_pawns and piece.can_capture_en_pasant and piece.can_capture_en_pasant_on == get_cords():
-                    for pawn_being_captured in all_pawns:
-                        if pawn_being_captured.can_be_captured_en_pasant == True:
-                            all_pieces_sprite_group.remove(pawn_being_captured)
-                            all_pawns.remove(pawn_being_captured)
-                            if pawn_being_captured.team == 1:
-                                white_pawns.remove(pawn_being_captured)
-                            else:
-                                black_pawns.remove(pawn_being_captured)
-                    piece.can_capture_en_pasant = False
-
-                else:
-                    for pawns in all_pawns:
-                        pawns.can_be_captured_en_pasant = False
-                        pawns.can_capture_en_pasant = False
 
                 # Checks if there are Sprites in these coordinates and removes them.
                 # Doesn't affect friendly team as that wouldn't be a Legal move
@@ -2279,46 +2264,46 @@ while True:
 
                             if get_cords() == (1, 1) and mouse_is_pressed:
                                 all_pieces_sprite_group.remove(piece)
-                                locals()[f'{counter}'] = Knight(f"{counter}", 1, (piece.coordinates))
-                                all_pieces_sprite_group.add(locals()[f'{counter}'])
-                                knights.add(locals()[f'{counter}'])
-                                white_knights.add(locals()[f'{counter}'])
-                                counter += 1
+                                locals()[f'{promotion_counter}'] = Knight(f"{promotion_counter}", 1, (piece.coordinates))
+                                all_pieces_sprite_group.add(locals()[f'{promotion_counter}'])
+                                knights.add(locals()[f'{promotion_counter}'])
+                                white_knights.add(locals()[f'{promotion_counter}'])
+                                promotion_counter += 1
                                 choosing = False
 
                             if get_cords() == (2, 1) and mouse_is_pressed:
                                 all_pieces_sprite_group.remove(piece)
-                                locals()[f'{counter}'] = Bishop(f"{counter}", 1, (piece.coordinates))
-                                all_pieces_sprite_group.add(locals()[f'{counter}'])
-                                bishops.add(locals()[f'{counter}'])
-                                white_bishops.add(locals()[f'{counter}'])
-                                counter += 1
+                                locals()[f'{promotion_counter}'] = Bishop(f"{promotion_counter}", 1, (piece.coordinates))
+                                all_pieces_sprite_group.add(locals()[f'{promotion_counter}'])
+                                bishops.add(locals()[f'{promotion_counter}'])
+                                white_bishops.add(locals()[f'{promotion_counter}'])
+                                promotion_counter += 1
                                 choosing = False
 
                             if get_cords() == (3, 1) and mouse_is_pressed:
                                 all_pieces_sprite_group.remove(piece)
-                                locals()[f'{counter}'] = Rook(f"{counter}", 1, (piece.coordinates))
-                                all_pieces_sprite_group.add(locals()[f'{counter}'])
-                                rooks.add(locals()[f'{counter}'])
-                                white_rooks.add(locals()[f'{counter}'])
-                                counter += 1
+                                locals()[f'{promotion_counter}'] = Rook(f"{promotion_counter}", 1, (piece.coordinates))
+                                all_pieces_sprite_group.add(locals()[f'{promotion_counter}'])
+                                rooks.add(locals()[f'{promotion_counter}'])
+                                white_rooks.add(locals()[f'{promotion_counter}'])
+                                promotion_counter += 1
                                 choosing = False
 
                             if get_cords() == (4, 1) and mouse_is_pressed:
                                 all_pieces_sprite_group.remove(piece)
-                                locals()[f'{counter}'] = Queen(f"{counter}", 1, (piece.coordinates))
-                                all_pieces_sprite_group.add(locals()[f'{counter}'])
-                                queens.add(locals()[f'{counter}'])
-                                white_queens.add(locals()[f'{counter}'])
-                                counter += 1
+                                locals()[f'{promotion_counter}'] = Queen(f"{promotion_counter}", 1, (piece.coordinates))
+                                all_pieces_sprite_group.add(locals()[f'{promotion_counter}'])
+                                queens.add(locals()[f'{promotion_counter}'])
+                                white_queens.add(locals()[f'{promotion_counter}'])
+                                promotion_counter += 1
                                 choosing = False
 
                             if get_cords() == (5, 1) and mouse_is_pressed and omni:
                                 all_pieces_sprite_group.remove(piece)
-                                locals()[f'{counter}'] = Omni(f"{counter}", 1, (piece.coordinates))
-                                all_pieces_sprite_group.add(locals()[f'{counter}'])
-                                omnis.add(locals()[f'{counter}'])
-                                counter += 1
+                                locals()[f'{promotion_counter}'] = Omni(f"{promotion_counter}", 1, (piece.coordinates))
+                                all_pieces_sprite_group.add(locals()[f'{promotion_counter}'])
+                                omnis.add(locals()[f'{promotion_counter}'])
+                                promotion_counter += 1
                                 choosing = False
                                 turn *= -1
 
@@ -2337,65 +2322,87 @@ while True:
 
                             if get_cords() == (2, 6) and mouse_is_pressed:
                                 all_pieces_sprite_group.remove(piece)
-                                locals()[f'{counter}'] = Knight(f"{counter}", -1, (piece.coordinates))
-                                all_pieces_sprite_group.add(locals()[f'{counter}'])
-                                knights.add(locals()[f'{counter}'])
-                                black_knights.add(locals()[f'{counter}'])
-                                counter += 1
+                                locals()[f'{promotion_counter}'] = Knight(f"{promotion_counter}", -1, (piece.coordinates))
+                                all_pieces_sprite_group.add(locals()[f'{promotion_counter}'])
+                                knights.add(locals()[f'{promotion_counter}'])
+                                black_knights.add(locals()[f'{promotion_counter}'])
+                                promotion_counter += 1
                                 choosing = False
 
                             if get_cords() == (3, 6) and mouse_is_pressed:
                                 all_pieces_sprite_group.remove(piece)
-                                locals()[f'{counter}'] = Bishop(f"{counter}", -1, (piece.coordinates))
-                                all_pieces_sprite_group.add(locals()[f'{counter}'])
-                                bishops.add(locals()[f'{counter}'])
-                                black_bishops.add(locals()[f'{counter}'])
-                                counter += 1
+                                locals()[f'{promotion_counter}'] = Bishop(f"{promotion_counter}", -1, (piece.coordinates))
+                                all_pieces_sprite_group.add(locals()[f'{promotion_counter}'])
+                                bishops.add(locals()[f'{promotion_counter}'])
+                                black_bishops.add(locals()[f'{promotion_counter}'])
+                                promotion_counter += 1
                                 choosing = False
 
                             if get_cords() == (4, 6) and mouse_is_pressed:
                                 all_pieces_sprite_group.remove(piece)
-                                locals()[f'{counter}'] = Rook(f"{counter}", -1, (piece.coordinates))
-                                all_pieces_sprite_group.add(locals()[f'{counter}'])
-                                rooks.add(locals()[f'{counter}'])
-                                black_rooks.add(locals()[f'{counter}'])
-                                counter += 1
+                                locals()[f'{promotion_counter}'] = Rook(f"{promotion_counter}", -1, (piece.coordinates))
+                                all_pieces_sprite_group.add(locals()[f'{promotion_counter}'])
+                                rooks.add(locals()[f'{promotion_counter}'])
+                                black_rooks.add(locals()[f'{promotion_counter}'])
+                                promotion_counter += 1
                                 choosing = False
 
                             if get_cords() == (5, 6) and mouse_is_pressed:
                                 all_pieces_sprite_group.remove(piece)
-                                locals()[f'{counter}'] = Queen(f"{counter}", -1, (piece.coordinates))
-                                all_pieces_sprite_group.add(locals()[f'{counter}'])
-                                queens.add(locals()[f'{counter}'])
-                                black_queens.add(locals()[f'{counter}'])
-                                counter += 1
+                                locals()[f'{promotion_counter}'] = Queen(f"{promotion_counter}", -1, (piece.coordinates))
+                                all_pieces_sprite_group.add(locals()[f'{promotion_counter}'])
+                                queens.add(locals()[f'{promotion_counter}'])
+                                black_queens.add(locals()[f'{promotion_counter}'])
+                                promotion_counter += 1
                                 choosing = False
 
                             if get_cords() == (6, 6) and mouse_is_pressed and omni:
                                 all_pieces_sprite_group.remove(piece)
-                                locals()[f'{counter}'] = Omni(f"{counter}", -1, (piece.coordinates))
-                                all_pieces_sprite_group.add(locals()[f'{counter}'])
-                                omnis.add(locals()[f'{counter}'])
-                                counter += 1
+                                locals()[f'{promotion_counter}'] = Omni(f"{promotion_counter}", -1, (piece.coordinates))
+                                all_pieces_sprite_group.add(locals()[f'{promotion_counter}'])
+                                omnis.add(locals()[f'{promotion_counter}'])
+                                promotion_counter += 1
                                 choosing = False
                                 turn *= -1
                         clock.tick(60)
 
+                # Checks if pawn captured En Pasant.
+                if piece in all_pawns and piece.can_capture_en_pasant:
+                    if piece.can_capture_en_pasant_on == get_cords():
+                        for pawn_being_captured in all_pawns:
+                            if pawn_being_captured.can_be_captured_en_pasant == True:
+                                all_pieces_sprite_group.remove(pawn_being_captured)
+                                all_pawns.remove(pawn_being_captured)
+                                if pawn_being_captured.team == 1:
+                                    white_pawns.remove(pawn_being_captured)
+                                else:
+                                    black_pawns.remove(pawn_being_captured)
+                        piece.can_capture_en_pasant = False
+
+                if move_counter == on_move:
+                    for pawns in all_pawns:
+                        pawns.can_be_captured_en_pasant = False
+                        pawns.can_capture_en_pasant = False
+                        pawns.can_capture_en_pasant_on = ()
+
                 # En Pasant sequence
                 if piece in black_pawns and piece.can_move_two and get_cords() in BLACK_DOUBLE_ROW:
-                    piece.can_be_captured_en_pasant = True
+                    on_move = move_counter + 1
                     for white_pawn in white_pawns:
                         if (white_pawn.offset_x == x_cord - 1 and white_pawn.offset_y == y_cord) or \
                                 (white_pawn.offset_x == x_cord + 1 and white_pawn.offset_y == y_cord):
                             white_pawn.can_capture_en_pasant = True
                             white_pawn.can_capture_en_pasant_on = (x_cord, y_cord - 1)
+                            piece.can_be_captured_en_pasant = True
+
                 if piece in white_pawns and piece.can_move_two and get_cords() in WHITE_DOUBLE_ROW:
-                    piece.can_be_captured_en_pasant = True
+                    on_move = move_counter + 1
                     for black_pawn in black_pawns:
                         if (black_pawn.offset_x == x_cord - 1 and black_pawn.offset_y == y_cord) or \
                                 (black_pawn.offset_x == x_cord + 1 and black_pawn.offset_y == y_cord):
                             black_pawn.can_capture_en_pasant = True
                             black_pawn.can_capture_en_pasant_on = (x_cord, y_cord + 1)
+                            piece.can_be_captured_en_pasant = True
 
                 # Check if the pieces moved is a King, Rook or a Pawn,
                 # if so they respectively lose Castling and Move per Two rights
@@ -2409,9 +2416,9 @@ while True:
                     piece.havent_moved = False
 
                 piece.update(get_cords())
-                calculate_legal_moves()
                 turn *= -1
-
+                calculate_legal_moves()
+                move_counter += 1
             else:
                 piece.update(piece.coordinates)
             # Ends the sequence
@@ -2430,7 +2437,7 @@ while True:
     if white_king_is_in_check():
         white_check_mate = True
         for piece in all_pieces_sprite_group:
-            if piece.team ==  1 and piece.legal_moves != []:
+            if piece.team == 1 and piece.legal_moves != []:
                 white_check_mate = False
         if len(king_white.legal_moves) != 0:
             white_check_mate = False
@@ -2442,7 +2449,7 @@ while True:
             if ev.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-        screen.blit(chess_board, (1080, 1080))
+        screen.blit(chess_board, (0, 0))
         all_pieces_sprite_group.draw(screen)
         screen.blit(check_mate, (0, 0))
         if black_check_mate:
